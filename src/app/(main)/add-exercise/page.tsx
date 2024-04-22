@@ -4,7 +4,7 @@ import AddExerciseForm from "@/components/add-exercise-form";
 import { useState } from "react";
 import content from "@/content/(main)/add-exercise/content-add-exercise-page";
 
-export default function AddExercise() {
+export default function AddExercisePage() {
   const [key, setKey] = useState<number>(0);
   const resetForm = () => setKey(key + 1);
   return (
