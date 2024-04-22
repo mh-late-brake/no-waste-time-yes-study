@@ -6,3 +6,17 @@ datasource db {
   provider = "sqlite"
   url      = "file:../database/database.db"
 }
+
+model Exercise {
+  id                  Int    @id @default(autoincrement())
+  question            String
+  correctAnswer       String
+  image               Bytes?
+  numOfTimesCompleted Int    @default(0)
+}
+
+model PlayTime {
+  id              Int      @id @default(autoincrement())
+  durationMinutes Int
+  createdAt       DateTime @default(now())
+}
