@@ -3,6 +3,7 @@
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 import { z } from "zod";
 import { prisma } from "../../prisma/client";
+import { revalidatePath } from "next/cache";
 
 const schema = z.object({
   question: z.string(),
@@ -43,6 +44,7 @@ export default async function addExercise(_prevFormState: any, formData: FormDat
     }
   }
 
+  revalidatePath("/list-exercise");
   return {
     success: true,
   }

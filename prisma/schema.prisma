@@ -8,11 +8,12 @@ datasource db {
 }
 
 model Exercise {
-  id                  Int    @id @default(autoincrement())
+  id                  Int      @id @default(autoincrement())
   question            String
   correctAnswer       String
   image               Bytes?
-  numOfTimesCompleted Int    @default(0)
+  numOfTimesCompleted Int      @default(0)
+  createdAt           DateTime @default(now())
 }
 
 model PlayTime {
