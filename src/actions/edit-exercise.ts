@@ -32,7 +32,7 @@ export default async function editExercise(_prevFormState: any, formData: FormDa
 
   const randomSalt = Date.now();
   const imagePath = data.image.size > 0 ? `${process.cwd()}/public/${randomSalt}_${data.image.name}` : null;
-  const imageUrl = data.image.size > 0 ? `/${randomSalt}_${data.image.name}` : null;
+  const imageUrl = data.image.size > 0 ? `/api/assets/${randomSalt}_${data.image.name}` : null;
   if (imagePath) {
     try {
       await fs.writeFile(imagePath, Buffer.from(await data.image.arrayBuffer()));
