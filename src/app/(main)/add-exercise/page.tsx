@@ -1,13 +1,10 @@
 "use client";
 
 import AddExerciseForm from "@/components/add-exercise-form";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import content from "@/content/(main)/add-exercise/content-add-exercise-page";
 import constant from "@/constant/constant";
-import useSWR from "swr";
-
-// @ts-ignore
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { Exercise } from "@prisma/client";
 
 export default function AddExercisePage({
   searchParams,
@@ -18,13 +15,38 @@ export default function AddExercisePage({
   const fetchUrl = !!exerciseId
     ? `/api/get-exercise-info?${constant.queryParamGetExerciseInfo}=${exerciseId}`
     : null;
-  const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const fetcher = async () => {
+      if (!fetchUrl) {
+        return null;
+      }
+      const res = await fetch(fetchUrl);
+      const data = await res.json();
+      return data;
+    };
+
+    setData(null);
+    fetcher().then((result) => {
+      if (!ignore) {
+        setData(result);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, [fetchUrl]);
 
   const [key, setKey] = useState<number>(0);
   const resetForm = () => setKey(key + 1);
 
-  if (isLoading) {
-    return <div>Loading</div>;
+  const exerciseInfo: Exercise | null = data;
+
+  if (!data) {
+    return <div>Loading ...</div>;
   }
 
   return (
@@ -32,7 +54,11 @@ export default function AddExercisePage({
       <h2 className="mb-11 text-center text-4xl font-bold dark:text-white">
         {exerciseId ? content.headerModifyExercise : content.headerAddExercise}
       </h2>
-      <AddExerciseForm exerciseInfo={data} resetForm={resetForm} key={key} />
+      <AddExerciseForm
+        exerciseInfo={exerciseInfo}
+        resetForm={resetForm}
+        key={key}
+      />
     </div>
   );
 }
