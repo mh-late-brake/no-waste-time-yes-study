@@ -1,7 +1,9 @@
 type Content = {
-  header: string
+  headerAddExercise: string
+  headerModifyExercise: string
 }
 const content: Content = {
-  header: "Add Exercise"
+  headerAddExercise: "Add Exercise",
+  headerModifyExercise: "Edit Exercise"
 }
 export default content

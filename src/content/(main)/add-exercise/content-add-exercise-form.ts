@@ -4,11 +4,14 @@ type Content = {
   answerInputLabel: string,
   answerInputPlaceholder?: string,
   submitButtonLabel: string,
+  editButtonLabel: string,
   imageUploadInputLabel: string,
   imageUploadInputDescription?: string,
   resetButtonLabel: string,
   successAlert: string,
   failureAlert: string,
+  idInputLabel: string,
+  linkBackAfterSuccessModify: string,
 }
 const content: Content = {
   questionInputLabel: "Question",
@@ -18,7 +21,10 @@ const content: Content = {
   submitButtonLabel: "Add Exercise",
   resetButtonLabel: "Add other exercise",
   successAlert: "Successfully add exercise",
-  failureAlert: "Something failed"
+  failureAlert: "Something failed",
+  idInputLabel: "id",
+  editButtonLabel: "Save",
+  linkBackAfterSuccessModify: "Saved. Click here to go back."
 }
 
 export default content

@@ -3,16 +3,40 @@ import addExercise from "@/actions/add-exercise";
 import { useFormState } from "react-dom";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import { Exercise } from "@prisma/client";
+import editExercise from "@/actions/edit-exercise";
+import Link from "next/link";
 
 const initialFormState = null;
 
 export default function AddExerciseForm({
   resetForm,
+  exerciseInfo,
 }: {
   resetForm: () => void;
+  exerciseInfo: Exercise | null;
 }) {
-  const [formState, formAction] = useFormState(addExercise, initialFormState);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const mode = !!exerciseInfo ? "Modify" : "Add";
+
+  const initialElementState = {
+    id: exerciseInfo?.id || null,
+    question: exerciseInfo?.question || "",
+    answer: exerciseInfo?.correctAnswer || "",
+    imageUrl: exerciseInfo?.imageUrl || null,
+  };
+
+  const serverAction = !!exerciseInfo ? editExercise : addExercise;
+
+  const [formState, formAction] = useFormState(serverAction, initialFormState);
+  const [questionInput, setQuestionInput] = useState<string>(
+    initialElementState.question,
+  );
+  const [answerInput, setAnswerInput] = useState<string>(
+    initialElementState.answer,
+  );
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(
+    initialElementState.imageUrl,
+  );
 
   const handleUserUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
     let newImageFile = null;
@@ -30,6 +54,11 @@ export default function AddExerciseForm({
 
   return (
     <form className="mx-auto max-w-6xl" action={formAction}>
+      <input
+        name={content.idInputLabel}
+        value={exerciseInfo?.id || ""}
+        type="hidden"
+      />
       <div className="mb-5">
         <label
           htmlFor={content.questionInputLabel}
@@ -45,6 +74,10 @@ export default function AddExerciseForm({
           placeholder={content.questionInputPlaceholder || ""}
           required
           autoComplete="off"
+          value={questionInput}
+          onChange={(e) => {
+            setQuestionInput(e.target.value);
+          }}
         ></textarea>
       </div>
       <div className="mb-5">
@@ -62,6 +95,10 @@ export default function AddExerciseForm({
           placeholder={content.answerInputPlaceholder || ""}
           required
           autoComplete="off"
+          value={answerInput}
+          onChange={(e) => {
+            setAnswerInput(e.target.value);
+          }}
         />
       </div>
       <div className="mb-5">
@@ -97,7 +134,7 @@ export default function AddExerciseForm({
           className="mb-5"
         />
       )}
-      {!formState?.success && (
+      {!formState?.success && mode == "Add" && (
         <button
           type="submit"
           className="mb-5 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
@@ -105,7 +142,7 @@ export default function AddExerciseForm({
           {content.submitButtonLabel}
         </button>
       )}
-      {formState?.success && (
+      {formState?.success && mode == "Add" && (
         <button
           type="button"
           className="mb-5 w-full rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 sm:w-auto"
@@ -115,7 +152,7 @@ export default function AddExerciseForm({
         </button>
       )}
 
-      {formState?.success && (
+      {formState?.success && mode == "Add" && (
         <div
           className="mb-4 rounded-lg bg-green-100 p-4 text-sm text-green-800 dark:bg-gray-800 dark:text-green-400"
           role="alert"
@@ -123,13 +160,30 @@ export default function AddExerciseForm({
           {content.successAlert}
         </div>
       )}
-      {formState?.error && (
+      {formState?.error && mode == "Add" && (
         <div
           className="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
           role="alert"
         >
           {content.failureAlert}
         </div>
+      )}
+      {!formState?.success && mode == "Modify" && (
+        <button
+          type="submit"
+          className="mb-5 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+        >
+          {content.editButtonLabel}
+        </button>
+      )}
+      {formState?.success && mode == "Modify" && (
+        <Link
+          href={`/list-exercise`}
+          type="submit"
+          className="mb-5 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+        >
+          {content.linkBackAfterSuccessModify}
+        </Link>
       )}
     </form>
   );

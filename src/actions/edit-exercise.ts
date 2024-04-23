@@ -10,13 +10,15 @@ const schema = z.object({
   question: z.string(),
   answer: z.string(),
   image: z.instanceof(File),
+  id: z.string(),
 })
 
-export default async function addExercise(_prevFormState: any, formData: FormData) {
+export default async function editExercise(_prevFormState: any, formData: FormData) {
   const validatedFields = schema.safeParse({
     question: formData.get(content.questionInputLabel),
     answer: formData.get(content.answerInputLabel),
     image: formData.get(content.imageUploadInputLabel),
+    id: formData.get(content.idInputLabel),
   })
 
   if (!validatedFields.success) {
@@ -42,22 +44,27 @@ export default async function addExercise(_prevFormState: any, formData: FormDat
 
   let newExercise;
   try {
-    newExercise = await prisma.exercise.create({
+    newExercise = await prisma.exercise.update({
+      where: {
+        id: Number(data.id),
+      },
       data: {
         question: data.question,
         correctAnswer: data.answer,
-        imageUrl: imageUrl,
+        imageUrl,
       }
     })
   }
   catch (e) {
     return {
-      error: "Error when create new record in database"
+      error: "Error when update record in database"
     }
   }
 
   revalidatePath("/list-exercise");
+  revalidatePath("/add-exercise");
   return {
     success: true,
   }
 }
+

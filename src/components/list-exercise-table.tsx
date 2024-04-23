@@ -1,5 +1,7 @@
+import constant from "@/constant/constant";
 import content from "@/content/(main)/list-exercise/content-list-exercise-table";
 import { Exercise } from "@prisma/client";
+import Link from "next/link";
 
 export default async function ListExerciseTable({
   exercises,
@@ -30,9 +32,12 @@ export default async function ListExerciseTable({
               >
                 <span>{exercise.question}</span>
                 <div className="flex">
-                  <button className="ml-auto mr-10 font-medium text-red-600">
+                  <Link
+                    href={`/add-exercise?${constant.searchParamAddExerciseRoute}=${exercise.id}`}
+                    className="ml-auto mr-10 font-medium text-red-600"
+                  >
                     {content.editButton}
-                  </button>
+                  </Link>
                   <button className="mr-5 font-medium text-green-700">
                     {content.doThisExerciseButton}
                   </button>

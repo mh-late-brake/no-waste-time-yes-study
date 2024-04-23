@@ -10,7 +10,7 @@ export default async function ListExercisePage() {
   try {
     exercises = await prisma.exercise.findMany({
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
   } catch (e) {
