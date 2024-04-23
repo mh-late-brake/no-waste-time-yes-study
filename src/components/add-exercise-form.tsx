@@ -1,6 +1,8 @@
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 import addExercise from "@/actions/add-exercise";
 import { useFormState } from "react-dom";
+import { ChangeEvent, useState } from "react";
+import Image from "next/image";
 
 const initialFormState = null;
 
@@ -10,6 +12,21 @@ export default function AddExerciseForm({
   resetForm: () => void;
 }) {
   const [formState, formAction] = useFormState(addExercise, initialFormState);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+
+  const handleUserUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
+    let newImageFile = null;
+    if (e.target.files) {
+      newImageFile = e.target.files[0];
+    }
+
+    if (!newImageFile) {
+      setUploadedImageUrl(null);
+    } else {
+      const newImageUrl = URL.createObjectURL(newImageFile);
+      setUploadedImageUrl(newImageUrl);
+    }
+  };
 
   return (
     <form className="mx-auto max-w-6xl" action={formAction}>
@@ -60,6 +77,8 @@ export default function AddExerciseForm({
           aria-describedby="user_avatar_help"
           id={content.imageUploadInputLabel}
           type="file"
+          onChange={handleUserUploadImage}
+          accept="image/*"
         />
         <div
           className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -68,6 +87,16 @@ export default function AddExerciseForm({
           {content.imageUploadInputDescription || ""}
         </div>
       </div>
+      {uploadedImageUrl && (
+        <Image
+          src={uploadedImageUrl}
+          alt="Uploaded Image"
+          width={200}
+          height={200}
+          onLoad={() => URL.revokeObjectURL(uploadedImageUrl)}
+          className="mb-5"
+        />
+      )}
       {!formState?.success && (
         <button
           type="submit"
