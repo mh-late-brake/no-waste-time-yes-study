@@ -12,6 +12,7 @@ type Content = {
   failureAlert: string,
   idInputLabel: string,
   linkBackAfterSuccessModify: string,
+  showImageButton: string,
 }
 const content: Content = {
   questionInputLabel: "Question",
@@ -24,7 +25,8 @@ const content: Content = {
   failureAlert: "Something failed",
   idInputLabel: "id",
   editButtonLabel: "Save",
-  linkBackAfterSuccessModify: "Saved. Click here to go back."
+  linkBackAfterSuccessModify: "Saved. Click here to go back.",
+  showImageButton: "Show uploaded image"
 }
 
 export default content
