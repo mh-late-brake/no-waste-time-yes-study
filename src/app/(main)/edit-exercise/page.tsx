@@ -5,13 +5,14 @@ import content from "@/content/(main)/add-exercise/content-add-exercise-page";
 import constant from "@/constant/constant";
 import { Exercise } from "@prisma/client";
 import EditExerciseForm from "@/components/edit-exercise-form";
+import Header from "@/components/header";
 
 export default function EditExercisePage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const exerciseId = searchParams[constant.searchParamAddExerciseRoute];
+  const exerciseId = searchParams[constant.searchParamEditExerciseRoute];
   if (!exerciseId) {
     throw new Error("Cannot get exercise id from search params");
   }
@@ -45,9 +46,7 @@ export default function EditExercisePage({
 
   return (
     <div>
-      <h2 className="mb-11 text-center text-4xl font-bold dark:text-white">
-        {content.headerModifyExercise}
-      </h2>
+      <Header>{content.headerModifyExercise}</Header>
       <EditExerciseForm
         question={data.question}
         id={data.id}

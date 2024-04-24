@@ -33,14 +33,17 @@ export default async function ListExerciseTable({
                 <span>{exercise.question}</span>
                 <div className="flex">
                   <Link
-                    href={`/edit-exercise?${constant.searchParamAddExerciseRoute}=${exercise.id}`}
+                    href={`/edit-exercise?${constant.searchParamEditExerciseRoute}=${exercise.id}`}
                     className="ml-auto mr-10 font-medium text-red-600"
                   >
                     {content.editButton}
                   </Link>
-                  <button className="mr-5 font-medium text-green-700">
+                  <Link
+                    href={`/do-exercise/${exercise.id}`}
+                    className="mr-5 font-medium text-green-700"
+                  >
                     {content.doThisExerciseButton}
-                  </button>
+                  </Link>
                 </div>
               </th>
               <td className="px-6 py-4">

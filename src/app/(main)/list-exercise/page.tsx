@@ -4,6 +4,7 @@ import content from "@/content/(main)/list-exercise/content-list-exercise-page";
 import SummaryListExercise from "@/components/summary-list-exercise";
 import { SummaryContent } from "@/components/summary-list-exercise";
 import { default as summaryContentLabel } from "@/content/(main)/list-exercise/content-summary-list";
+import Header from "@/components/header";
 
 export default async function ListExercisePage() {
   let exercises;
@@ -31,16 +32,14 @@ export default async function ListExercisePage() {
     {
       description: summaryContentLabel.newExercise,
       count: exercises.reduce((sum, exercise) => {
-        return exercise.numOfTimesCompleted == 0 ? sum + 1 : sum;
+        return exercise.numOfTimesCompleted === 0 ? sum + 1 : sum;
       }, 0),
     },
   ];
 
   return (
     <div>
-      <h2 className="mb-11 text-center text-4xl font-bold dark:text-white">
-        {content.heading}
-      </h2>
+      <Header>{content.heading}</Header>
       <SummaryListExercise content={summaryContent} />
       <ListExerciseTable exercises={exercises} />
     </div>

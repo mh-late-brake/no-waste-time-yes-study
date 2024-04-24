@@ -1,10 +1,12 @@
 type Constant = {
-  searchParamAddExerciseRoute: string;
+  searchParamEditExerciseRoute: string;
+  searchParamDoExerciseRoute: string;
   queryParamGetExerciseInfo: string;
 };
 
 const constant: Constant = {
-  searchParamAddExerciseRoute: "exercise_id",
+  searchParamEditExerciseRoute: "id",
+  searchParamDoExerciseRoute: "id",
   queryParamGetExerciseInfo: "id",
 };
 
