@@ -1,5 +1,9 @@
 "use server"
 
+// TODO: At the moment, if edit a exercise with image
+// then save the exercise (without intentionally delete the image)
+// the image still got delete
+
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 import { z } from "zod";
 import { prisma } from "../../prisma/client";

@@ -6,26 +6,33 @@ import InputText from "./add-exercise-form/input-text";
 import InputImage from "./add-exercise-form/input-image";
 import { Alert } from "./add-exercise-form/alert";
 import Button from "./general-button";
+import { useState } from "react";
 
 const initialFormState = null;
 
-export default function AddExerciseForm({
-  resetForm,
-}: {
-  resetForm: () => void;
-}) {
-  const [formState, formAction] = useFormState(addExercise, initialFormState);
+export default function AddExerciseForm() {
+  const [receivedFormState, formAction] = useFormState(
+    addExercise,
+    initialFormState,
+  );
+  const [isNewForm, setIsNewForm] = useState(true);
 
-  const alert = formState?.success ? (
+  const myFormState = isNewForm ? null : receivedFormState;
+
+  const resetForm = () => setIsNewForm(true);
+
+  const alert = myFormState?.success ? (
     <Alert type="Success">{content.successAlert}</Alert>
   ) : (
     <Alert type="Failure">{content.failureAlert}</Alert>
   );
 
-  const button = formState?.success ? (
+  const button = myFormState?.success ? (
     <Button onClick={() => resetForm()}>{content.resetButtonLabel}</Button>
   ) : (
-    <Button type="submit">{content.submitButtonLabel}</Button>
+    <Button type="submit" onClick={() => setIsNewForm(false)}>
+      {content.submitButtonLabel}
+    </Button>
   );
 
   return (
@@ -34,7 +41,7 @@ export default function AddExerciseForm({
       <InputText label={content.answerInputLabel} />
       <InputImage label={content.imageUploadInputLabel} />
       {button}
-      {formState && alert}
+      {myFormState && alert}
     </form>
   );
 }

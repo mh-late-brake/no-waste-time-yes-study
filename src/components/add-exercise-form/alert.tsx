@@ -7,11 +7,12 @@ export function Alert({
   children: React.ReactNode;
   type: AlertType;
 }) {
-  const color = type == "Success" ? "green" : "red";
+  const bg = type == "Success" ? "bg-green-200" : "bg-red-200";
+  const color = type == "Success" ? "text-green-800" : "text-red-800";
+
   return (
     <div
-      className={`mb-4 rounded-lg bg-${color}-100 p-4 text-sm text-${color}-800 dark:bg-gray-800 dark:text-red-400`}
-      role="alert"
+      className={`mb-4 rounded-lg p-4 text-sm dark:bg-gray-800 dark:text-red-400 ${bg} ${color}`}
     >
       {children}
     </div>

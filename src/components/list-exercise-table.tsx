@@ -33,7 +33,7 @@ export default async function ListExerciseTable({
                 <span>{exercise.question}</span>
                 <div className="flex">
                   <Link
-                    href={`/add-exercise?${constant.searchParamAddExerciseRoute}=${exercise.id}`}
+                    href={`/edit-exercise?${constant.searchParamAddExerciseRoute}=${exercise.id}`}
                     className="ml-auto mr-10 font-medium text-red-600"
                   >
                     {content.editButton}
