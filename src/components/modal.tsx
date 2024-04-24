@@ -1,4 +1,4 @@
-export default function ImageModal({
+export default function Modal({
   children,
   show,
   closeModal,

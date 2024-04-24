@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useState } from "react";
 import Image from "next/image";
-import ImageModal from "./image-modal";
+import Modal from "../modal";
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 
 export default function InputImage({
@@ -59,7 +59,7 @@ export default function InputImage({
       </div>
       {imageUrl && (
         <div>
-          <ImageModal show={showModal} closeModal={() => setShowModal(false)}>
+          <Modal show={showModal} closeModal={() => setShowModal(false)}>
             <Image
               src={imageUrl}
               alt="Uploaded Image"
@@ -68,7 +68,7 @@ export default function InputImage({
               onLoad={() => URL.revokeObjectURL(imageUrl)}
               className="mb-5"
             />
-          </ImageModal>
+          </Modal>
           <div className="mb-5 text-sm text-gray-900 dark:text-gray-400">
             {`Uploaded image: ${fileInputValue.replace("C:\\fakepath\\", "")}`}
           </div>
