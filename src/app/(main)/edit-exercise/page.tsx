@@ -1,3 +1,4 @@
+// TODO: This one can be a server component and fetch data directly from database
 "use client";
 
 import { useEffect, useState } from "react";
