@@ -19,7 +19,6 @@ export default async function submitExercise(_prevFormState: any, formData: Form
   });
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors)
     return {
       error: "Error when parsing form data",
     }

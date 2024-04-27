@@ -2,6 +2,7 @@ import "server-only"
 
 import { prisma } from "../../prisma/client"
 import { getExpireTime } from "./get-preferences";
+import minuteToMillisecond from "./minute-to-millisecond";
 
 export default async function getCurrentBudget() {
   let latestBudget;
@@ -18,20 +19,25 @@ export default async function getCurrentBudget() {
 
   // There is no record in the database => the user currently has 0 budget
   if (!latestBudget) {
-    return 0;
+    return {
+      value: 0,
+      expireTimeEpoch: Date.now(),
+    }
   }
 
-  const timeFromLastRecordTillNow = msToMinute(Date.now() - latestBudget.createdAt.getTime());
-  const expireTime = await getExpireTime();
+  const expireTime = minuteToMillisecond(await getExpireTime());
+  const expireTimeEpoch = latestBudget.createdAt.getTime() + expireTime;
 
-  if (timeFromLastRecordTillNow <= expireTime) {
-    return latestBudget.value;
+  if (expireTimeEpoch >= Date.now()) {
+    return {
+      value: latestBudget.value,
+      expireTimeEpoch,
+    }
   }
   else {
-    return 0;
+    return {
+      value: 0,
+      expireTimeEpoch: Date.now(),
+    }
   }
-}
-
-function msToMinute(ms: number): number {
-  return ms / (1000 * 60);
 }

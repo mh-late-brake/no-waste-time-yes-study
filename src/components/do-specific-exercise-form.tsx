@@ -45,9 +45,6 @@ export default function DoSpecificExerciseForm({
     );
   }
 
-  console.log(formState);
-  console.log(alert);
-
   return (
     <form action={formAction}>
       <input type="hidden" value={exerciseId} name={content.inputIdLabel} />

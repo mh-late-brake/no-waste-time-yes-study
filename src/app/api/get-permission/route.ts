@@ -1,3 +1,5 @@
+import allowedToContinue from "@/function/allow-to-continue"
+
 export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET(request: Request) {

@@ -1,3 +1,5 @@
+import ConvertBudgetToPlaytimeForm from "@/components/convert-budget-to-playtime-form";
+
 export default function HomePage() {
-  return <div>Hello World</div>;
+  return <ConvertBudgetToPlaytimeForm />;
 }
