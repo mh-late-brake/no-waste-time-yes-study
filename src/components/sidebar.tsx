@@ -1,13 +1,7 @@
 import { Content } from "@/content/(main)/layout-content";
 import Link from "next/link";
 
-export default function SideBar({
-  children,
-  content,
-}: {
-  children: React.ReactNode;
-  content: Content;
-}) {
+export default function SideBar({ content }: { content: Content }) {
   return (
     <>
       <button
@@ -56,8 +50,6 @@ export default function SideBar({
           </ul>
         </div>
       </aside>
-
-      <div className="p-4 sm:ml-64">{children}</div>
     </>
   );
 }

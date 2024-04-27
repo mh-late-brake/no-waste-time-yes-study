@@ -8,7 +8,7 @@ const content: Content = {
   tableHead: [
     "Problem",
     "Correct Answer",
-    "Have Done (times)",
+    "Have Completed (times)",
   ],
   editButton: "Edit",
   doThisExerciseButton: "Do This Exercise"

@@ -10,14 +10,29 @@ datasource db {
 model Exercise {
   id                  Int      @id @default(autoincrement())
   question            String
-  correctAnswer       String
+  correctAnswer       String?
   imageUrl            String?
   numOfTimesCompleted Int      @default(0)
   createdAt           DateTime @default(now())
 }
 
-model PlayTime {
-  id              Int      @id @default(autoincrement())
-  durationMinutes Int
-  createdAt       DateTime @default(now())
+model Budget {
+  id        Int      @id @default(autoincrement())
+  value     Int
+  createdAt DateTime @default(now())
+}
+
+model expireTime {
+  id    Int @id @default(autoincrement())
+  value Int
+}
+
+model playTimeIncrement {
+  id    Int @id @default(autoincrement())
+  value Int
+}
+
+model controlledUrl {
+  id    Int    @id @default(autoincrement())
+  value String
 }
