@@ -3,7 +3,7 @@
 import { z } from "zod"
 import content from "@/content/(main)/do-exercise/content-do-specific-exercise-page";
 import checkAnswer from "@/function/check-answer";
-import increasePlaytime from "@/function/increase-playtime";
+import increaseBudget from "@/function/increase-budget";
 import increaseNumOfTimeCompleted from "@/function/increase-num-of-time-completed";
 import { revalidatePath } from "next/cache";
 
@@ -30,7 +30,7 @@ export default async function submitExercise(_prevFormState: any, formData: Form
   const isCorrect = await checkAnswer(+data.exerciseId, data.submittedAnswer);
 
   if (isCorrect !== "Incorrect") {
-    await increasePlaytime();
+    await increaseBudget();
     await increaseNumOfTimeCompleted(+data.exerciseId);
     revalidatePath("/");
     return {

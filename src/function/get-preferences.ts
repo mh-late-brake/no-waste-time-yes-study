@@ -14,17 +14,17 @@ export async function getExpireTime() {
   return expireTime.value;
 }
 
-export async function getPlaytimeIncrement() {
-  let playTimeIncrement;
-  playTimeIncrement = await prisma.playTimeIncrement.findFirst();
-  if (!playTimeIncrement) {
-    playTimeIncrement = await prisma.playTimeIncrement.create({
+export async function getBudgetIncrement() {
+  let budgetIncrement;
+  budgetIncrement = await prisma.budgetIncrement.findFirst();
+  if (!budgetIncrement) {
+    budgetIncrement = await prisma.budgetIncrement.create({
       data: {
-        value: defaultValues.playTimeIncrement,
+        value: defaultValues.budgetIncrement,
       }
     })
   }
-  return playTimeIncrement.value;
+  return budgetIncrement.value;
 }
 
 export async function getControlledUrls() {

@@ -27,7 +27,7 @@ model expireTime {
   value Int
 }
 
-model playTimeIncrement {
+model budgetIncrement {
   id    Int @id @default(autoincrement())
   value Int
 }
@@ -35,4 +35,10 @@ model playTimeIncrement {
 model controlledUrl {
   id    Int    @id @default(autoincrement())
   value String
+}
+
+model playTime {
+  id        Int      @id @default(autoincrement())
+  value     Int
+  createdAt DateTime @default(now())
 }

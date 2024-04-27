@@ -1,7 +1,11 @@
 export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET(request: Request) {
-  const res = { redirect: false };
+  const isAllow: boolean = await allowedToContinue();
+
+  const res = {
+    redirect: !isAllow,
+  }
 
   return new Response(JSON.stringify(res), {
     status: 200,

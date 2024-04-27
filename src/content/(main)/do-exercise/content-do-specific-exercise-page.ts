@@ -20,8 +20,8 @@ const content: Content = {
   submitButton: "Submit",
   alertError: "Error when submit answer",
   alertIncorrectAnswer: "Incorrect answer",
-  alertCorrectAnswer: "Yay. Correct answer. Playtime increased.",
-  correctNoMatterWhat: "There is no correct answer in the database so we couldn't check to see whether you did correctly or not. But: yay, playtime increased no matter what"
+  alertCorrectAnswer: "Yay. Correct answer. Budget increased.",
+  correctNoMatterWhat: "There is no correct answer in the database so we couldn't check to see whether you did correctly or not. But: yay, budget increased no matter what"
 }
 
 export default content;
