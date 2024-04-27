@@ -42,8 +42,10 @@ export default function StatusBar({
 
   return (
     <div className="fixed left-64 top-0 flex h-11 w-[calc(100vw-16rem)] items-center justify-end gap-10 border border-gray-200 bg-gray-50 px-11 py-1 text-center">
-      <div>Playtime: {msToDisplayTime(timeTillPlaytimeEnd)} left</div>
-      <div className="flex items-baseline gap-2">
+      <div className="min-w-56">
+        Playtime: {msToDisplayTime(timeTillPlaytimeEnd)} left
+      </div>
+      <div className="flex min-w-56 items-baseline gap-2">
         <div>Budget: {budget}</div>
         {budget > 0 && (
           <div className="text-sm font-light">
