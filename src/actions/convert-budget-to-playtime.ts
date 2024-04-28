@@ -29,9 +29,6 @@ export default async function convertBudgetToPlaytime(_prevFormState: any, _form
   const newEndTime = newStartTime + minuteToMillisecond(currentBudget.value);
   const newValue = millisecondToMinute(newEndTime - Date.now());
 
-  console.log("new value", newValue);
-  console.log(new Date(newEndTime).toString());
-
   try {
     const [_newBudget, _newPlaytime] = await prisma.$transaction([
       prisma.budget.create({

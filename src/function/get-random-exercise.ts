@@ -25,8 +25,9 @@ export default async function getRandomExercise() {
   }
 
   if (!(exercises.length > 0)) {
-    throw new Error("There are no exercise in the database");
+    return null;
   }
+  // TODO: May be it is better to handle "no exercise" case in the below functions
 
   const exercisesWithLowestTimeDone = exercises.filter(exercise => exercise.numOfTimesCompleted <= exercises[0].numOfTimesCompleted);
 

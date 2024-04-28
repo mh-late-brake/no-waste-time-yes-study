@@ -34,7 +34,8 @@ export default async function DoSpecificExercisePage({
     );
   }
 
-  const randomNextExercise = (await getRandomExercise()).id;
+  const randomExercise = await getRandomExercise();
+  const newExerciseId = randomExercise?.id || "no-exercise";
 
   return (
     <div>
@@ -58,7 +59,7 @@ export default async function DoSpecificExercisePage({
         <span>{exercise.numOfTimesCompleted}</span>
       </p>
       <DoSpecificExerciseForm exerciseId={exercise.id}>
-        <Link href={`/do-exercise/${randomNextExercise}`}>
+        <Link href={`/do-exercise/${newExerciseId}`}>
           <Button>{content.doAnotherExercise}</Button>
         </Link>
       </DoSpecificExerciseForm>

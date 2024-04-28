@@ -1,0 +1,14 @@
+{
+  "name": "Youtube redirect extension",
+  "version": "1.0.0",
+  "description": "hello world",
+  "permissions": [],
+  "host_permissions": [],
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["script.js"]
+    }
+  ]
+}
