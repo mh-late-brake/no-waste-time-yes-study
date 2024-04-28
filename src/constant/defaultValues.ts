@@ -3,8 +3,8 @@ const defaultValues = {
   expireTime: 15,
   budgetIncrement: 5,
   controlledUrls: [
-    "https://youtube.com",
-    "https://facebook.com",
+    "https://www.youtube.com",
+    "https://www.facebook.com",
   ]
 }
 

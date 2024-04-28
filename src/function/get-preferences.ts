@@ -27,14 +27,16 @@ export async function getBudgetIncrement() {
   return budgetIncrement.value;
 }
 
-export async function getControlledUrls() {
-  let controlledUrls;
-  controlledUrls = (await prisma.controlledUrl.findMany()).map(row => row.value);
+export async function getControlledUrls(): Promise<string[]> {
+  let controlledUrls = (await prisma.controlledUrl.findMany()).map(row => row.value);
   if (controlledUrls.length == 0) {
-    const urls = await prisma.controlledUrl.createMany({
+    await prisma.controlledUrl.createMany({
       data: defaultValues.controlledUrls.map(url => ({ value: url })),
     })
-    return urls;
+  }
+  controlledUrls = (await prisma.controlledUrl.findMany()).map(row => row.value);
+  if (controlledUrls.length == 0) {
+    throw new Error("Messed up here");
   }
   return controlledUrls;
 }
