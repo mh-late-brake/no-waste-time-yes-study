@@ -3,6 +3,8 @@ import content from "@/content/(main)/do-exercise/content-do-exercise-page";
 import getRandomExercise from "@/function/get-random-exercise";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function DoExercisePage() {
   const randomExercise = await getRandomExercise();
   const newExerciseId = randomExercise?.id || "no-exercise";

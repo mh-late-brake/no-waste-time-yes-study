@@ -1,3 +1,6 @@
+// NOTE: There is weird behavior when:
+// Form doesn't have key
+// Press reset form button lead to the form being submitted (although in the html, the button has type=button)
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 import addExercise from "@/actions/add-exercise";
 import { useFormState } from "react-dom";
@@ -16,10 +19,14 @@ export default function AddExerciseForm() {
     initialFormState,
   );
   const [isNewForm, setIsNewForm] = useState(true);
+  const [key, setKey] = useState(0);
 
   const myFormState = isNewForm ? null : receivedFormState;
 
-  const resetForm = () => setIsNewForm(true);
+  const resetForm = () => {
+    setIsNewForm(true);
+    setKey(key + 1);
+  };
 
   const alert = myFormState?.success ? (
     <Alert type="Success">{content.successAlert}</Alert>
@@ -36,7 +43,7 @@ export default function AddExerciseForm() {
   );
 
   return (
-    <form className="mx-auto max-w-6xl" action={formAction}>
+    <form className="mx-auto max-w-6xl" key={key} action={formAction}>
       <TextArea label={content.questionInputLabel} />
       <InputText label={content.answerInputLabel} />
       <InputImage label={content.imageUploadInputLabel} />
