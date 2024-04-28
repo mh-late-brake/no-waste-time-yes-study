@@ -17,7 +17,7 @@ export default function EditExerciseForm({
   id,
 }: {
   question: string;
-  correctAnswer: string;
+  correctAnswer: string | null;
   imageUrl: string | null;
   id: number;
 }) {
@@ -35,7 +35,7 @@ export default function EditExerciseForm({
       <TextArea label={content.questionInputLabel} initialValue={question} />
       <InputText
         label={content.answerInputLabel}
-        initialValue={correctAnswer}
+        initialValue={correctAnswer || undefined}
       />
       <InputImage
         label={content.imageUploadInputLabel}
