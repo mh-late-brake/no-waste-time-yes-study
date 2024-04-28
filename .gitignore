@@ -4,9 +4,6 @@ public/
 # don't show .git file in telescope nvim
 .git/
 
-# Ignore database
-database/
-
 # dependencies
 /node_modules
 /.pnp
