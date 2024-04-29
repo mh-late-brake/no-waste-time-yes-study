@@ -71,7 +71,7 @@ async function main() {
     injectCSS(css);
     body.appendChild(modal);
     modal.showModal();
-    setTimeout(() => (window.location.href = "http://localhost:3000/"), 5000);
+    setTimeout(() => window.location.replace("http://localhost:1234/"), 5000);
   }
 }
 
