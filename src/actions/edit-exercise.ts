@@ -1,9 +1,5 @@
 "use server"
 
-// TODO: At the moment, if edit a exercise with image
-// then save the exercise (without intentionally delete the image)
-// the image still got delete
-
 import content from "@/content/(main)/add-exercise/content-add-exercise-form";
 import { z } from "zod";
 import { prisma } from "../../prisma/client";
@@ -15,6 +11,7 @@ const schema = z.object({
   answer: z.string(),
   image: z.instanceof(File),
   id: z.string(),
+  removeImage: z.coerce.number(),
 })
 
 export default async function editExercise(_prevFormState: any, formData: FormData) {
@@ -23,9 +20,11 @@ export default async function editExercise(_prevFormState: any, formData: FormDa
     answer: formData.get(content.answerInputLabel),
     image: formData.get(content.imageUploadInputLabel),
     id: formData.get(content.idInputLabel),
+    removeImage: formData.get(content.removeImageInputLabel),
   })
 
   if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors)
     return {
       error: "Error when parsing form data",
       errorDetail: validatedFields.error.flatten().fieldErrors,
@@ -33,6 +32,22 @@ export default async function editExercise(_prevFormState: any, formData: FormDa
   }
 
   const data = validatedFields.data;
+  if (data.image.size === 0 && data.removeImage === 0) {
+    await prisma.exercise.update({
+      where: {
+        id: Number(data.id),
+      },
+      data: {
+        question: data.question,
+        correctAnswer: data.answer,
+      }
+    })
+    revalidatePath("/list-exercise");
+    revalidatePath("/add-exercise");
+    return {
+      success: true,
+    }
+  }
 
   const randomSalt = Date.now();
   const imagePath = data.image.size > 0 ? `${process.cwd()}/public/${randomSalt}_${data.image.name}` : null;

@@ -8,10 +8,12 @@ export default function InputImage({
   initialImageUrl = null,
   label,
   description,
+  removeImage = () => null,
 }: {
   initialImageUrl?: string | null;
   label: string;
   description?: string;
+  removeImage?: () => void;
 }) {
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [fileInputValue, setFileInputValue] = useState("");
@@ -84,6 +86,7 @@ export default function InputImage({
             onClick={() => {
               setFileInputValue("");
               setImageUrl(null);
+              removeImage();
             }}
           >
             Delete image

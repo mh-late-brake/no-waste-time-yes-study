@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import editExercise from "@/actions/edit-exercise";
 import { Alert } from "./add-exercise-form/alert";
+import { useState } from "react";
 
 const initialFormState = null;
 
@@ -22,6 +23,7 @@ export default function EditExerciseForm({
   id: number;
 }) {
   const [formState, formAction] = useFormState(editExercise, initialFormState);
+  const [removeImage, setRemoveImage] = useState(0);
 
   const alert = formState?.success ? (
     <Alert type="Success">{content.successModify}</Alert>
@@ -29,8 +31,15 @@ export default function EditExerciseForm({
     <Alert type="Failure">{content.failureAlert}</Alert>
   );
 
+  const handleUserRemoveImage = () => setRemoveImage(1);
+
   return (
     <form className="mx-auto max-w-6xl" action={formAction}>
+      <input
+        type="hidden"
+        name={content.removeImageInputLabel}
+        value={removeImage}
+      />
       <input type="hidden" name={content.idInputLabel} value={id} />
       <TextArea label={content.questionInputLabel} initialValue={question} />
       <InputText
@@ -39,6 +48,7 @@ export default function EditExerciseForm({
       />
       <InputImage
         label={content.imageUploadInputLabel}
+        removeImage={handleUserRemoveImage}
         initialImageUrl={imageUrl}
       />
       <Button type="submit">{content.editButtonLabel}</Button>

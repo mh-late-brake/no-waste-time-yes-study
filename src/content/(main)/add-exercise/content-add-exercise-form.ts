@@ -14,6 +14,7 @@ type Content = {
   successModify: string,
   showImageButton: string,
   linkBackToListExercise: string,
+  removeImageInputLabel: string,
 }
 const content: Content = {
   questionInputLabel: "Question",
@@ -28,7 +29,8 @@ const content: Content = {
   editButtonLabel: "Save",
   successModify: "Saved",
   showImageButton: "Show uploaded image",
-  linkBackToListExercise: "Go back"
+  linkBackToListExercise: "Go back",
+  removeImageInputLabel: "RemoveImage",
 }
 
 export default content
