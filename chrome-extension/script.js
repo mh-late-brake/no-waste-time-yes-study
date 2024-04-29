@@ -48,7 +48,7 @@ async function main() {
   let data;
   try {
     const res = await fetch(
-      `http://localhost:3000/api/get-permission?url=${url}`,
+      `http://localhost:1234/api/get-permission?url=${url}`,
     );
     data = await res.json();
   } catch (e) {
@@ -71,7 +71,7 @@ async function main() {
     injectCSS(css);
     body.appendChild(modal);
     modal.showModal();
-    setTimeout(() => window.location.replace("http://localhost:3000/"), 5000);
+    setTimeout(() => (window.location.href = "http://localhost:3000/"), 5000);
   }
 }
 
