@@ -34,6 +34,9 @@ export default function AddExerciseForm() {
     <Alert type="Failure">{content.failureAlert}</Alert>
   );
 
+  // TODO: Seem like there is a bug of these button
+  // The form doesn't got submitted even when button type="submit"
+
   const button = myFormState?.success ? (
     <Button onClick={() => resetForm()}>{content.resetButtonLabel}</Button>
   ) : (
