@@ -6,6 +6,8 @@ import { SummaryContent } from "@/components/summary-list-exercise";
 import { default as summaryContentLabel } from "@/content/(main)/list-exercise/content-summary-list";
 import Header from "@/components/header";
 
+export const dynamic = "force-dynamic";
+
 export default async function ListExercisePage() {
   let exercises;
   try {
